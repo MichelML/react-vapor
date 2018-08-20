@@ -6,6 +6,7 @@ import * as React from 'react';
 import {render as ReactDOMRender} from 'react-dom';
 import {Provider} from 'react-redux';
 
+import {SlideYExamples} from '../src/animations/examples/SlideYExamples';
 import {ActionBarConnectedExamples} from '../src/components/actions/examples/ActionBarConnectedExamples';
 import {ActionBarExamples} from '../src/components/actions/examples/ActionBarExamples';
 import {ItemFilterConnectedExamples} from '../src/components/actions/filters/examples/ItemFilterConnectedExamples';
@@ -107,17 +108,7 @@ interface ExampleWrapperState {
 class ExampleWrapper extends React.Component<{component: any, componentName: string}, ExampleWrapperState> {
     state: ExampleWrapperState = {shown: false};
 
-    render() {
-        return (
-            <div className='px2 py2 mod-border-bottom'>
-                <h2 className='link' onClick={() => this.setState({shown: !this.state.shown})}>{this.props.componentName}</h2>
-                <div id={this.props.componentName} className='mb1 mt1'>
-                    {this.state.shown && <this.props.component />}
-                </div>
-            </div>
-        );
-    }
-}
+import {ReactVaporStore} from './ReactVaporStore';
 
 class App extends React.Component<any, any> {
     render() {
@@ -216,6 +207,7 @@ class App extends React.Component<any, any> {
                         {component: DropdownSearchExamples, componentName: 'DropdownSearch'},
                         {component: DiffViewerExamples, componentName: 'DiffViewer'},
                         {component: BannerExamples, componentName: 'Banner'},
+                        {component: SlideYExamples, componentName: 'SlideY'},
                     ].map((component) => <ExampleWrapper key={component.componentName} componentName={component.componentName} component={component.component} />)}
                 </div>
             </Provider>
