@@ -27,6 +27,7 @@ import {IPaginationState} from './components/navigation/pagination/NavigationPag
 import {IPerPageState} from './components/navigation/perPage/NavigationPerPageReducers';
 import {IOptionPickerState} from './components/optionPicker/OptionPickerReducers';
 import {IOptionsCycleState} from './components/optionsCycle/OptionsCycleReducers';
+import {IExpressionEditorState} from './components/queryExpressionEditor/expressionEditor/ExpressionEditorReducers';
 import {ISearchBarState} from './components/searchBar/SearchBarReducers';
 import {ISelectState} from './components/select/SelectReducers';
 import {ISubNavigationState} from './components/subNavigation/SubNavigationReducers';
@@ -115,4 +116,6 @@ export interface IReduxActionsPayload {
     disabled?: boolean;
     searching?: boolean;
     yPosition?: number;
+    expression?: string;
+    booleanOperator?: string;
 }
