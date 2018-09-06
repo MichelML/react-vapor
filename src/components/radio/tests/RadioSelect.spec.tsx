@@ -2,7 +2,7 @@ import {mount, ReactWrapper, shallow} from 'enzyme';
 // tslint:disable-next-line:no-unused-variable
 import * as React from 'react';
 import {Radio} from '../Radio';
-import {IRadioSelectProps, RadioSelect} from '../RadioSelect';
+import {IRadioSelectAllProps, RadioSelect} from '../RadioSelect';
 
 describe('RadioSelect', () => {
     describe('<RadioSelect />', () => {
@@ -16,7 +16,7 @@ describe('RadioSelect', () => {
     });
 
     describe('<RadioSelect />', () => {
-        let radioSelect: ReactWrapper<IRadioSelectProps, any>;
+        let radioSelect: ReactWrapper<IRadioSelectAllProps, any>;
         let clickSpy: jasmine.Spy;
         const aRadioValue = 'blue';
         const anotherRadioValue = 'red';
@@ -90,6 +90,17 @@ describe('RadioSelect', () => {
             const innerRadioInput = innerRadio.find('input').first();
 
             radioSelect.setProps({onChange: clickSpy}).mount();
+            innerRadioInput.simulate('click');
+
+            expect(clickSpy.calls.count()).toBe(2);
+        });
+
+        it('should chain prop onChangeCallback with children onClick prop and call both on children change', () => {
+            const innerRadios = radioSelect.find('Radio');
+            const innerRadio = innerRadios.findWhere((radio) => radio.prop('value') === aRadioValue).first();
+            const innerRadioInput = innerRadio.find('input').first();
+
+            radioSelect.setProps({onChangeCallback: clickSpy}).mount();
             innerRadioInput.simulate('click');
 
             expect(clickSpy.calls.count()).toBe(2);
