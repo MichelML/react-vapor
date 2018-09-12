@@ -1,3 +1,4 @@
+import * as Redux from 'redux';
 import {IActionOptions} from './components/actions/Action';
 import {IActionBarState} from './components/actions/ActionBarReducers';
 import {IItemFilterState} from './components/actions/filters/ItemFilterReducers';
@@ -75,6 +76,7 @@ export interface IReactVaporState {
     textAreas?: ITextAreaState[];
     menus?: IMenusState;
     radioSelects?: IRadioSelectState[];
+    lastAction?: Redux.Action;
 }
 
 export interface IReduxActionsPayload {
