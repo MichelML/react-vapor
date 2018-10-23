@@ -28,6 +28,7 @@ import {ChosenSelectExamples} from '../src/components/chosen/examples/ChosenSele
 import {CollapsibleContainerExamples} from '../src/components/collapsible/examples/CollapsibleContainerExamples';
 import {CollapsibleExamples} from '../src/components/collapsible/examples/CollapsibleExamples';
 import {CollapsibleInfoBoxExamples} from '../src/components/collapsible/examples/CollapsibleInfoBoxExamples';
+import {ColorExamples} from '../src/components/color/examples/ColorExamples';
 import {ColorBarExamples} from '../src/components/colorBar/ColorBarExamples';
 import {ContentExamples} from '../src/components/content/examples/ContentExamples';
 import {CornerRibbonExamples} from '../src/components/cornerRibbon/examples/CornerRibbonExamples';
@@ -117,17 +118,7 @@ interface ExampleProps {
 class ExampleWrapper extends React.Component<ExampleProps, ExampleWrapperState> {
     state: ExampleWrapperState = {shown: false};
 
-    render() {
-        return (
-            <div className='px2 py2 mod-border-bottom'>
-                <h2 className='link' onClick={() => this.setState({shown: !this.state.shown})}>{this.props.componentName}</h2>
-                <div id={this.props.componentName} className='mb1 mt1'>
-                    {this.state.shown && <this.props.component />}
-                </div>
-            </div>
-        );
-    }
-}
+import {ReactVaporStore} from './ReactVaporStore';
 
 const sortComponentsByName = (a: ExampleProps, b: ExampleProps) => a.componentName.toLowerCase().localeCompare(b.componentName.toLowerCase());
 const formatComponentsExamples = (example: ExampleProps) => <ExampleWrapper key={example.componentName} componentName={example.componentName} component={example.component} />;
@@ -226,13 +217,14 @@ class App extends React.Component<any, any> {
                         {component: SplitMultilineInputExamples, componentName: 'SplitMultilineInput'},
                         {component: JSONEditorExamples, componentName: 'JSONEditor'},
                         {component: CodeEditorExamples, componentName: 'CodeEditor'},
-                        {component: DropdownSearchExamples, componentName: 'DropdownSearch'},
+                        {component: DropdownSearchExamples, componentName: 'DropdownSearch (deprecated)'},
                         {component: DiffViewerExamples, componentName: 'DiffViewer'},
                         {component: BannerExamples, componentName: 'Banner'},
                         {component: SlideYExamples, componentName: 'SlideY'},
                         {component: StatusCardExamples, componentName: 'StatusCard'},
                         {component: ActionableItemExamples, componentName: 'ActionableItem'},
                         {component: PopoverConnectedExamples, componentName: 'Popover'},
+                        {component: ColorExamples, componentName: 'Color'},
                     ]
                         .sort(sortComponentsByName)
                         .map(formatComponentsExamples)}
