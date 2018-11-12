@@ -34,6 +34,9 @@ import {ISelectState} from './components/select/SelectReducers';
 import {ISelectWithFilterCompositeState} from './components/select/SelectWithFilterReducers';
 import {ISubNavigationState} from './components/subNavigation/SubNavigationReducers';
 import {ITabGroupState} from './components/tab/TabReducers';
+import {ITableRowState as HOCTableRowState} from './components/table-hoc/reducers/TableRowReducers';
+import {ITableWithPaginationState} from './components/table-hoc/reducers/TableWithPaginationReducers';
+import {ITableWithSortState} from './components/table-hoc/reducers/TableWithSortReducers';
 import {ITablePredicate} from './components/tables/Table';
 import {ITableStateModifier} from './components/tables/TableActions';
 import {ITableHeaderCellsState} from './components/tables/TableHeaderCellReducers';
@@ -42,6 +45,7 @@ import {ITableRowState} from './components/tables/TableRowReducers';
 import {ITextAreaState} from './components/textarea/TextAreaReducers';
 import {IToastsState} from './components/toast/ToastReducers';
 import {IStringListCompositeState} from './reusableState/customList/StringListReducers';
+import {ComponentId} from './utils/ComponentUtils';
 
 export interface IReactVaporState {
     autocompletes?: IAutocompleteState[];
@@ -70,6 +74,9 @@ export interface IReactVaporState {
     toastContainers?: IToastsState[];
     tableHeaderCells?: ITableHeaderCellsState;
     tables?: ITablesState;
+    tableHOCHeader?: ITableWithSortState[];
+    tableHOCPagination?: ITableWithPaginationState[];
+    tableHOCRow?: HOCTableRowState[];
     checkboxes?: ICheckboxState[];
     inputs?: IInputState[];
     collapsibles?: CollapsibleState[];
@@ -83,6 +90,7 @@ export interface IReactVaporState {
     stringList?: IStringListCompositeState;
     selectWithFilter?: ISelectWithFilterCompositeState;
     lastAction?: Redux.Action;
+    dirtyComponents?: ComponentId[];
 }
 
 export interface IReduxActionsPayload {
@@ -125,4 +133,5 @@ export interface IReduxActionsPayload {
     yPosition?: number;
     disabledValues?: string[];
     isOpen?: boolean;
+    isDirty?: boolean;
 }
