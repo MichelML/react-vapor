@@ -69,7 +69,6 @@ export const listBoxReducer = (state: IListBoxState = listBoxInitialState, actio
         case SelectActions.toggle:
             return {
                 ...state,
-                active: 0,
             };
         default:
             return state;
