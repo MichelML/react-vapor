@@ -12,6 +12,7 @@ export interface IListBoxOwnProps {
     multi?: boolean;
     highlight?: string;
     items?: IItemBoxProps[];
+    ulElementRefFunction?: (menu: HTMLElement) => void;
 }
 
 export interface IListBoxStateProps {
@@ -22,7 +23,7 @@ export interface IListBoxStateProps {
 export interface IListBoxDispatchProps {
     onRender?: () => void;
     onDestroy?: () => void;
-    onOptionClick?: (option: IItemBoxProps) => void;
+    onOptionClick?: (option: IItemBoxProps, index: number) => void;
 }
 
 export interface IListBoxProps extends IListBoxOwnProps, IListBoxStateProps, IListBoxDispatchProps {}
@@ -53,23 +54,39 @@ export class ListBox extends React.Component<IListBoxProps, {}> {
         const visibleLength = _.filter(this.props.items, (item: IItemBoxProps) => shouldShow(item) && !item.disabled).length;
 
         let index = 0;
+        let activeSet = false;
         const items = _.chain(this.props.items)
             .filter(shouldShow)
             .map((item: IItemBoxProps) => {
                 let active = false;
                 if (!item.disabled) {
-                    active = mod(this.props.active, visibleLength) === index;
+                    if (this.props.active === null) {
+                        active = _.contains(this.props.selected, item.value);
+                    } else {
+                        active = mod(this.props.active, visibleLength) === index;
+                    }
+                    activeSet = active || activeSet;
                     index++;
+                }
+                return {...item, active};
+            })
+            .map((item: IItemBoxProps) => {
+                let active = item.active;
+                if (!item.disabled && activeSet === false) {
+                    active = true;
+                    activeSet = true;
                 }
                 return {...item, active};
             })
             .map((item: IItemBoxProps) => <ItemBox
                 key={item.value}
                 {...item}
+                active={active}
                 onOptionClick={(option: IItemBoxProps) => this.onSelectItem(item)}
                 selected={_.contains(this.props.selected, item.value)}
                 highlight={this.props.highlight}
-            />)
+            />;
+            })
             .value();
 
         return items.length
@@ -79,7 +96,9 @@ export class ListBox extends React.Component<IListBoxProps, {}> {
 
     render() {
         return (
-            <ul className={this.getClasses()}>
+            <ul
+                className={this.getClasses()}
+            >
                 {this.getItems()}
             </ul>
         );
@@ -87,7 +106,11 @@ export class ListBox extends React.Component<IListBoxProps, {}> {
 
     private onSelectItem(item: IItemBoxProps) {
         if (!item.disabled) {
-            callIfDefined(this.props.onOptionClick, item);
+            const index = _.chain(this.props.items)
+                .pluck('value')
+                .indexOf(item.value)
+                .value();
+            callIfDefined(this.props.onOptionClick, item, index);
             callIfDefined(item.onOptionClick, item);
         }
     }
