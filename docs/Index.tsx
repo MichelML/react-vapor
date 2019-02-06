@@ -7,6 +7,8 @@ import * as React from 'react';
 import {render as ReactDOMRender} from 'react-dom';
 import {Provider} from 'react-redux';
 
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import {SlideYExamples} from '../src/animations/examples/SlideYExamples';
 import {ActionableItemExamples} from '../src/components/actionable-item/examples/ActionableItemExamples';
 import {ActionBarConnectedExamples} from '../src/components/actions/examples/ActionBarConnectedExamples';
@@ -68,6 +70,7 @@ import {ModalCompositeExamples} from '../src/components/modal/examples/ModalComp
 import {ModalConnectedExamples} from '../src/components/modal/examples/ModalConnectedExamples';
 import {ModalExamples} from '../src/components/modal/examples/ModalExamples';
 import {ModalPromptExamples} from '../src/components/modalPrompt/exemples/ModalPromptExamples';
+import {MultilineBoxExamples} from '../src/components/multilineBox/examples/MultilineBoxExamples';
 import {MultilineInputExamples} from '../src/components/multilineInput/examples/MultilineInputExamples';
 import {SplitMultilineInputExamples} from '../src/components/multilineInput/examples/SplitMultilineExamples';
 import {MultiStepBarExamples} from '../src/components/multiStepBar/examples/MultiStepBarExamples';
@@ -162,7 +165,9 @@ class Header extends React.Component<{}, HeaderState> {
         );
     }
 }
-class App extends React.Component<{}, AppState> {
+
+@DragDropContext(HTML5Backend)
+class App extends React.PureComponent<{}, AppState> {
     private components = [
         {component: MenuExamples, componentName: 'Menu'},
         {component: CollapsibleInfoBoxExamples, componentName: 'CollapsibleInfoBox'},
@@ -266,6 +271,7 @@ class App extends React.Component<{}, AppState> {
         {component: NumericInputExamples, componentName: 'Numeric Input'},
         {component: StickyFooterExamples, componentName: 'StickyFooter'},
         {component: ComponentWithEditingExampleHOC, componentName: 'ComponentWithEditing'},
+        {component: MultilineBoxExamples, componentName: 'MultilineBoxExamples'},
     ];
 
     constructor(props: {}, state: AppState) {
