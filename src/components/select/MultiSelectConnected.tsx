@@ -1,7 +1,6 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
-import {DragDropContext, DropTarget, IDropTargetProps} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import {DropTarget, IDropTargetProps} from 'react-dnd';
 import {createStructuredSelector} from 'reselect';
 import * as _ from 'underscore';
 
@@ -67,7 +66,6 @@ const parentDropTarget = {
 };
 
 @ReduxConnect(makeMapStateToProps, mapDispatchToProps)
-@DragDropContext(HTML5Backend)
 @DropTarget(DraggableSelectedOptionType, parentDropTarget, (connect: any) => ({
     connectDropTarget: connect.dropTarget(),
 }))
@@ -159,11 +157,14 @@ export class MultiSelectConnected extends React.Component<IMultiSelectProps & Re
 
     private getButton(props: ISelectButtonProps): JSX.Element {
         const classes = classNames('multiselect-input', {'mod-sortable': this.props.sortable});
+        const visibleLength = _.filter(this.props.items, (item: IItemBoxProps) => !item.hidden && !item.disabled).length - this.props.selected.length;
+        const disabled = this.props.disabled || (visibleLength === 0);
+
         const buttonAttrs = !this.props.noDisabled
             && this.props.selected
             && this.props.selected.length === this.props.items.length
             ? {disabled: true}
-            : {disabled: this.props.disabled};
+            : {disabled: disabled};
         return (
             <div className={classes} style={this.props.multiSelectStyle}>
                 {this.props.connectDropTarget(
