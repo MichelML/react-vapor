@@ -60,7 +60,7 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "@types/chosen-js": "1.6.2",
+    "@types/chosen-js": "1.8.1",
     "@types/classnames": "2.2.6",
     "@types/codemirror": "0.0.62",
     "@types/diff2html": "0.0.4",
