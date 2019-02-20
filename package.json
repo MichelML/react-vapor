@@ -168,7 +168,7 @@
     "webpack": "4.26.1",
     "webpack-bundle-analyzer": "3.0.3",
     "webpack-cli": "3.2.0",
-    "webpack-dev-server": "3.1.11"
+    "webpack-dev-server": "3.2.0"
   },
   "files": [
     "dist",
